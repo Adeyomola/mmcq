@@ -223,7 +223,7 @@
         .review-q {
             font-weight: bold;
             margin-bottom: 5px;
-            color: var(--text-color);
+            color: #1e1c1c;
         }
 
         .review-ans {
