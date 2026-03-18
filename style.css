@@ -1,0 +1,232 @@
+        /* Dark */
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --option-bg: #ffffff;
+            --option-border: #dcdde1;
+            --rationale-bg: #fff3cd;
+            --patient-case-bg: #eef2f7;
+        }
+
+        body.dark-theme {
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --text-color: #f5f6fa;
+            --option-bg: #2c3e50;
+            --option-border: #444444;
+            --rationale-bg: #9e7800;
+            --patient-case-bg: #2a68b6;
+        }
+
+
+
+        /* Styling the inputs/selects for Dark Mode */
+        body.dark-theme select,
+        body.dark-theme input {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            background: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* End of Dark */
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Setup Styles */
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Question Styles */
+        .question-box {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .option {
+            background-color: var(--option-bg);
+            border: 1px solid var(--option-border);
+            color: var(--text-color);
+            padding: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .option:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .option.selected {
+            background-color: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        /* Feedback & Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .rationale {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--rationale-bg);
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+            font-size: 14px;
+
+        }
+
+        /* Summary Review Styles */
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            background: #3498db;
+            color: white;
+            font-size: 28px;
+            margin: 20px auto;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .review-item {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ccc;
+        }
+
+        .review-item.pass {
+            border-left-color: #28a745;
+        }
+
+        .review-item.fail {
+            border-left-color: #dc3545;
+        }
+
+        .review-q {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-ans {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }

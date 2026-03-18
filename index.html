@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PEBC Mock Exam Pro</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3498db">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/822/822143.png">
+
+    <script>
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('PWA Service Worker Active'))
+                    .catch(err => console.log('PWA error:', err));
+            });
+        }
+    </script>
+    <script src="app.js" defer></script>
+    <!-- <script src="questions.js" defer></script> -->
+</head>
+
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Dark Mode</button>
+    <div class="container">
+        <div id="setup-view">
+            <h1>Exam Setup</h1>
+
+            <div class="input-group">
+                <label>Topic Filter</label>
+                <select id="topicFilterSetup" onchange="updateAvailableCount()">
+                    <option value="All">All Topics</option>
+                    <option value="Cardiovascular">Cardiovascular</option>
+                    <option value="Infectious Disease">Infectious Disease</option>
+                    <option value="Endocrinology">Endocrinology</option>
+                    <option value="Minor Ailments">Minor Ailments (OTC)</option>
+                    <option value="Psychiatry">Psychiatry</option>
+                    <option value="Respiratory">Respiratory</option>
+                    <option value="Gastrointestinal">Gastrointestinal</option>
+                    <option value="Biostatistics">Biostatistics</option>
+                    <option value="Calculations">Calculations</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Competency Filter</label>
+                <select id="compFilterSetup" onchange="updateAvailableCount()">
+                    <option value="All">All Competencies</option>
+                    <option value="Patient Care">Patient Care</option>
+                    <option value="Professionalism">Professionalism</option>
+                    <option value="Product Distribution">Product Distribution</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Number of Questions</label>
+                <input type="number" id="sessionCount" value="10" min="1">
+                <small id="available-text"
+                    style="color: #666; display: block; margin-top: 5px; font-style: italic;"></small>
+            </div>
+            <div class="input-group"
+                style="display: flex; gap: 20px; align-items: center; background: #f0f4f8; padding: 10px; border-radius: 8px;">
+                <label style="margin:0; flex:1;">
+                    <input type="checkbox" id="shuffleToggle" checked> Randomize Order
+                </label>
+                <label style="margin:0; flex:1;">
+                    <input type="checkbox" id="timerToggle"> Show Question Timer
+                </label>
+            </div>
+            <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">📁 Load questions</button>
+            <button class="btn" onclick="startSession()">Start Study
+                Session</button>
+        </div>
+
+        <div id="quiz-view" class="hidden">
+            <h1 style="font-size: 18px;"><a href="./index.html" style="text-decoration: none; color: inherit;">PEBC
+                    Practice</a></h1>
+            <div id="timer-display" class="hidden"
+                style="font-weight: bold; background: #2c3e50; color: #f1c40f; padding: 4px 10px; border-radius: 4px; font-family: monospace; font-size: 18px; text-align: center; margin: 0 auto; width: 10%;">
+                00:00</div>
+            <div id="quiz-container"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="prevQuestion()">Previous</button>
+                <span id="question-counter" style="align-self: center; font-weight: bold; font-size: 14px;"></span>
+                <button class="nav-btn" id="next-btn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <div id="summary-view" class="hidden" style="text-align: center;">
+            <h1>Results</h1>
+            <div class="score-circle" id="score-display">0%</div>
+            <div id="stats-text" style="margin-bottom: 20px; font-weight: bold;"></div>
+
+            <div id="review-list"></div>
+            <button class="btn" style="background:#27ae60; margin-bottom: 10px;" onclick="downloadReport()">Download
+                Weakness
+                Report</button>
+            <button class="btn" style="background:#2c3e50" onclick="location.reload()">New Session</button>
+        </div>
+    </div>
+</body>
+
+</html>
