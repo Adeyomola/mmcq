@@ -174,6 +174,10 @@ function revealAnswer(userIdx) {
   rationaleBox.innerHTML = `<strong>Rationale:</strong> ${correctOpt.rationale}`;
   rationaleBox.classList.remove("hidden");
   if (checkBtn) checkBtn.classList.add("hidden");
+
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 function nextQuestion() {
