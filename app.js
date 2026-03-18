@@ -15,9 +15,6 @@ window.addEventListener("load", () => {
       // It's still fresh! Restore it.
       allQuestions = JSON.parse(savedData);
 
-      // Update UI so it doesn't look empty
-      document.getElementById("file-status").innerText =
-        `✅ Session Restored (${allQuestions.length} questions)`;
       updateAvailableCount();
     } else {
       // Session expired, clean up memory
