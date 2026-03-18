@@ -227,6 +227,10 @@ function showSummary() {
   document.getElementById("stats-text").innerText =
     `You got ${correctCount} out of ${sessionQuestions.length} correct.`;
   document.getElementById("review-list").innerHTML = reviewHtml;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 function downloadReport() {
