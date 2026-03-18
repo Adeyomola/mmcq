@@ -138,6 +138,10 @@ function renderQuestion() {
 
   if (userAnswers[currentIndex] !== null)
     revealAnswer(userAnswers[currentIndex]);
+
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 function selectOption(i) {
