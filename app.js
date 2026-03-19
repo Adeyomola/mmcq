@@ -145,12 +145,32 @@ function renderQuestion() {
 }
 
 function selectOption(i) {
-  if (userAnswers[currentIndex] !== null) return;
+  // 1. Check if the answer has already been LOCKED/REVEALED.
+  // We only 'return' if the rationale is already showing (sessionQuestions[currentIndex].revealed)
+  // or if you've already clicked "Check Answer".
+  const rationaleBox = document.getElementById("rationale-box");
+  if (!rationaleBox.classList.contains("hidden")) return;
+
+  // 2. Remove 'selected' class from ALL options to "clear the slate"
   document
     .querySelectorAll(".option")
     .forEach((el) => el.classList.remove("selected"));
-  document.getElementById(`opt-${i}`).classList.add("selected");
+
+  // 3. Highlight the newly clicked option
+  const selectedEl = document.getElementById(`opt-${i}`);
+  if (selectedEl) {
+    selectedEl.classList.add("selected");
+  }
+
+  // 4. Update the stored answer (this now allows overwriting until "Check" is pressed)
   userAnswers[currentIndex] = i;
+
+  // 5. Enable the "Check Answer" button now that a selection exists
+  const checkBtn = document.getElementById("check-btn");
+  if (checkBtn) {
+    checkBtn.disabled = false;
+    checkBtn.style.opacity = "1";
+  }
 }
 
 function checkAnswer() {
