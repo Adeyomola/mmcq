@@ -30,6 +30,7 @@ window.addEventListener("load", () => {
     // Restore the variables
     currentIndex = state.currentIndex;
     sessionQuestions = state.sessionQuestions;
+    userAnswers = state.userAnswers;
 
     // UI: If we were in the middle of a test, skip the setup and show the quiz
     showView("quiz-view");
@@ -54,6 +55,10 @@ function updateAvailableCount() {
 }
 
 function startSession() {
+  currentIndex = 0;
+  sessionQuestions = [];
+  userAnswers = [];
+
   const topic = document.getElementById("topicFilterSetup").value;
   const comp = document.getElementById("compFilterSetup").value;
   const shuffle = document.getElementById("shuffleToggle").checked;
