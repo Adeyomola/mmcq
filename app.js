@@ -22,6 +22,20 @@ window.addEventListener("load", () => {
       sessionStorage.removeItem("pebc_expiry");
     }
   }
+
+  const savedState = sessionStorage.getItem("active_exam_state");
+  if (savedState && allQuestions.length > 0) {
+    const state = JSON.parse(savedState);
+
+    // Restore the variables
+    currentIndex = state.currentIndex;
+    score = state.score;
+    sessionQuestions = state.sessionQuestions;
+
+    // UI: If we were in the middle of a test, skip the setup and show the quiz
+    showView("quiz-view");
+    showQuestion();
+  }
 });
 
 // NEW: Function to show how many questions match the filters
