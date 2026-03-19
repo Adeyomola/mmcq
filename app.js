@@ -391,6 +391,7 @@ function saveSessionState() {
   const state = {
     currentIndex: currentIndex,
     score: score,
+    userAnswers: userAnswers,
     // Save the IDs of the questions in the current session
     sessionQuestions: sessionQuestions,
     startTime: startTime, // If you are tracking total time
