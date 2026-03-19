@@ -1,6 +1,6 @@
 let sessionQuestions = [];
 let currentIndex = 0;
-let points = 0;
+let score = 0;
 let userAnswers = [];
 let questionTimes = []; // Stores time spent per question in seconds
 let timerInterval;
@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
 
     // Restore the variables
     currentIndex = state.currentIndex;
-    points = state.points;
+    score = state.score;
     sessionQuestions = state.sessionQuestions;
 
     // UI: If we were in the middle of a test, skip the setup and show the quiz
@@ -56,7 +56,7 @@ function updateAvailableCount() {
 }
 
 function startSession() {
-  points = 0;
+  score = 0;
   const topic = document.getElementById("topicFilterSetup").value;
   const comp = document.getElementById("compFilterSetup").value;
   const shuffle = document.getElementById("shuffleToggle").checked;
@@ -205,7 +205,7 @@ function revealAnswer(userIdx) {
     const el = document.getElementById(`opt-${idx}`);
     if (opt.correct) {
       el.classList.add("correct");
-      points++;
+      score++;
     }
     if (idx === userIdx && !opt.correct) el.classList.add("incorrect");
   });
@@ -390,7 +390,7 @@ function handleFileSelect(event) {
 function saveSessionState() {
   const state = {
     currentIndex: currentIndex,
-    points: points,
+    score: score,
     // Save the IDs of the questions in the current session
     sessionQuestions: sessionQuestions,
     startTime: startTime, // If you are tracking total time
