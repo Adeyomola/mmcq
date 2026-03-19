@@ -174,6 +174,10 @@ function revealAnswer(userIdx) {
   rationaleBox.innerHTML = `<strong>Rationale:</strong> ${correctOpt.rationale}`;
   rationaleBox.classList.remove("hidden");
   if (checkBtn) checkBtn.classList.add("hidden");
+
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 function nextQuestion() {
@@ -227,6 +231,10 @@ function showSummary() {
   document.getElementById("stats-text").innerText =
     `You got ${correctCount} out of ${sessionQuestions.length} correct.`;
   document.getElementById("review-list").innerHTML = reviewHtml;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 function downloadReport() {
