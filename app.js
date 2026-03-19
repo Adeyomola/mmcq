@@ -164,20 +164,50 @@ function revealAnswer(userIdx) {
   const rationaleBox = document.getElementById("rationale-box");
   const checkBtn = document.getElementById("check-btn");
 
+  // 1. Visual feedback for the options
   q.options.forEach((opt, idx) => {
     const el = document.getElementById(`opt-${idx}`);
     if (opt.correct) el.classList.add("correct");
     if (idx === userIdx && !opt.correct) el.classList.add("incorrect");
   });
 
+  // 2. Build the detailed multi-rationale string
   const correctOpt = q.options.find((o) => o.correct);
-  rationaleBox.innerHTML = `<strong>Rationale:</strong> ${correctOpt.rationale}`;
+
+  // Start with the correct answer's rationale
+  let rationaleHTML = `<div style="margin-bottom: 15px;">
+    <strong style="color: #27ae60; text-transform: uppercase; font-size: 0.85em;">✔ Correct Answer Rationale:</strong><br>
+    ${correctOpt.rationale}
+  </div>`;
+
+  // Append the rationales for the incorrect choices
+  rationaleHTML += `<div style="border-top: 1px solid #ddd; pt-10; margin-top: 10px;">
+    <strong style="color: #e74c3c; text-transform: uppercase; font-size: 0.85em;">✘ Why others are incorrect:</strong>
+    <ul style="padding-left: 20px; margin-top: 8px; list-style-type: none;">`;
+
+  q.options.forEach((opt) => {
+    if (!opt.correct) {
+      rationaleHTML += `
+        <li style="margin-bottom: 8px; font-size: 0.95em;">
+          <span style="font-weight: 600;">"${opt.text}":</span> ${opt.rationale}
+        </li>`;
+    }
+  });
+
+  rationaleHTML += `</ul></div>`;
+
+  // 3. Update the UI
+  rationaleBox.innerHTML = rationaleHTML;
   rationaleBox.classList.remove("hidden");
+
   if (checkBtn) checkBtn.classList.add("hidden");
 
+  // 4. Re-render MathJax in case rationales contain formulas
   if (window.MathJax) {
     MathJax.typesetPromise();
   }
+
+  saveSessionState();
 }
 
 function nextQuestion() {
@@ -187,6 +217,7 @@ function nextQuestion() {
   } else {
     showSummary();
   }
+  saveSessionState();
 }
 
 function prevQuestion() {
@@ -315,4 +346,15 @@ function handleFileSelect(event) {
   };
 
   reader.readAsText(file);
+}
+
+function saveSessionState() {
+  const state = {
+    currentIndex: currentIndex,
+    score: score,
+    // Save the IDs of the questions in the current session
+    sessionQuestions: sessionQuestions,
+    startTime: startTime, // If you are tracking total time
+  };
+  sessionStorage.setItem("active_exam_state", JSON.stringify(state));
 }
